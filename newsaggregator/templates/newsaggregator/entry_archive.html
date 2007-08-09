@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Entries" %}{% endblock %}
+{% block breadcrumb %}<li class="last">{% trans "Entries" %}</li>{% endblock %}
+{% block content %}
+{% for object in latest %}
+{% if object.ip_address %}
+{% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
+{% endif %}
+<a id="{{ object.slug }}" href="{{ object.get_absolute_url }}">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</a>
+{% blocktrans with object.content as object_content %}{{ object_content }}{% endblocktrans %}</td>
+{% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} {{ object.get_author_str }}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Entries" %} {% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}{% endblock %}
+{% block breadcrumb%}<li><a href="/news/">{% trans "Entries" %}</a></li> <li><a href="/news/{{ object.pub_date|date:"Y"|lower }}/">{{ object.pub_date|date:"Y"|lower }}</a></li> <li><a href="/news/{{ object.pub_date|date:"Y"|lower }}/{{ object.pub_date|date:"F"|lower }}/">{{ object.pub_date|date:"F" }}</a></li> <li class="last">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</li>{% endblock %}
+{% block content %}
+<a id="{{ object.slug }}" href="{{ object.get_absolute_url }}">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</a><br />
+{% if object.ip_address %}
+{% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
+{% endif %}
+{% blocktrans with object.description as object_description %}{{ object_description }}{% endblocktrans %}<br />
+{% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} {{ object.get_author_str }}
+{% endblock %}
