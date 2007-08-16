@@ -7,7 +7,7 @@ class RssFeed(Feed):
     link = "/news/" 
     description = _("News Entries")
     def items(self):
-        return Entry.objects.order_by('-pub_date')[:5]
+        return Entry.published_objects.order_by('-pub_date')[:5]
 
 class AtomFeed(RssFeed):
     feed_type = Atom1Feed

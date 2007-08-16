@@ -9,18 +9,18 @@ feeds = {
 }
 
 entry_dict = {
-    'queryset': Entry.objects.all(),
+    'queryset': Entry.published_objects.all(),
     'date_field': 'pub_date',
     'allow_empty': 'true',
 }
 
 entry_dict_detail = {
-    'queryset': Entry.objects.all(),
+    'queryset': Entry.published_objects.all(),
     'date_field': 'pub_date',
 }
 
 entry_dict_year = {
-    'queryset': Entry.objects.all(),
+    'queryset': Entry.published_objects.all(),
     'date_field': 'pub_date',
     'make_object_list': 'True',
     'allow_empty': 'true',

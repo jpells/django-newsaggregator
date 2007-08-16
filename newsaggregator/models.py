@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
 from tagging.fields import TagField
+from publishedmanager.managers import PublishedManager
 
 class Feed(models.Model):
     title = models.CharField(_("Title"), maxlength=200)
@@ -41,6 +42,8 @@ class Entry(models.Model):
     state = models.CharField(maxlength=1, choices=settings.STATE_CHOICES, default=settings.STATE_DEFAULT, verbose_name=_("State of object"))
     ip_address = models.IPAddressField(verbose_name=_("Author's IP Address"), null=True, blank=True)
     tags = TagField(help_text=_("Enter key terms seperated with a space that you want to associate with this Entry"), verbose_name=_("Tags"))
+    objects = models.Manager()
+    published_objects = PublishedManager()
 
     def get_absolute_url(self):
         if self.link:
