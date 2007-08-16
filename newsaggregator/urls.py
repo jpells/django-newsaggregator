@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from newsaggregator.models import Entry
 from newsaggregator.feeds import RssFeed, AtomFeed
+from django.conf import settings
 
 feeds = { 
     'rss': RssFeed,
@@ -28,6 +29,10 @@ entry_dict_year = {
 urlpatterns = patterns('',
     (r'^rss/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds, 'url': 'rss'}),
     (r'^atom/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds, 'url': 'atom'}),
+)
+
+urlpatterns += patterns('django.views.generic.create_update',
+    (r'^create/$', 'create_object', dict(model=Entry, login_required=True, extra_context={'STATE_DEFAULT': settings.STATE_DEFAULT})),
 )
 
 urlpatterns += patterns('django.views.generic.date_based',
