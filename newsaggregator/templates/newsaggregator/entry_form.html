@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "News Create" %}{% endblock %}
+{% block extrahead %}
+{% load adminmedia %}<script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+{% endblock %}
+{% block breadcrumb%}<li><a href="/news/">{% trans "News" %}</a></li> <li class="last">{% trans "Create" %}</li>{% endblock %}
+{% block content %}
+<form method="post" >
+{% if form.has_errors %}
+<h2>{% blocktrans %}Please correct the following error{{ form.error_dict|pluralize }}{% endblocktrans %}:</h2>
+{% endif %}
+<input type="hidden" id="id_user" name="user" value="{{ user.id }}" />
+<input type="hidden" id="id_state" name="state" value="{{ STATE_DEFAULT }}" />
+<input type="hidden" id="id_slug" name="slug" value="" maxlength="50" />
+<input type="hidden" id="id_ip_address" class="vIPAddressField required" name="ip_address" size="15" value="{{ request.META.REMOTE_ADDR }}" maxlength="15" />
+{% if form.title.errors %}*** {% blocktrans %}{{ form.title.errors|join:", " }}{% endblocktrans %}{% endif %}
+<label for"id_title">{% trans "Title" %}:</label> {{ form.title }}
+{% if form.content.errors %}*** {% blocktrans %}{{ form.content.errors|join:", " }}{% endblocktrans %}{% endif %}
+<label for"id_content">{% trans "Content" %}:</label> {{ form.content }}
+{% if form.tags.errors %}*** {% blocktrans %}{{ form.tags.errors|join:", " }}{% endblocktrans %}{% endif %}
+<label for"id_tags">{% trans "Tags" %}:</label> {{ form.tags }}
+<input type="submit" value="{% blocktrans %}Create{% endblocktrans %}" />
+</form>
+<script type="text/javascript">
+        document.getElementById("id_slug").onchange = function() { this._changed = true; };document.getElementById("id_title").onkeyup = function() { var e = document.getElementById("id_slug"); if(!e._changed) { e.value = URLify(document.getElementById("id_title").value, 50);} }; 
+</script>
+{% endblock %}
