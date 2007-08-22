@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
 from tagging.fields import TagField
-from publishedmanager.managers import PublishedManager
+from published_manager.managers import PublishedManager
 
 class Feed(models.Model):
     title = models.CharField(_("Title"), maxlength=200)
