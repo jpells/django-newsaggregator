@@ -4,6 +4,6 @@
 {% block breadcrumb%}<li><a href="/news/">{% trans "Entries" %}</a></li> <li class="last">{{ year }}</li>{% endblock %}
 {% block content %}
 {% for object in object_list %}
-        <a href="{{ object.get_absolute_url }}">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</a><br />
+{% include "newsaggregator/_entry.html" %}
 {% endfor %}
 {% endblock %}
