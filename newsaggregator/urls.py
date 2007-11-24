@@ -31,9 +31,14 @@ urlpatterns = patterns('',
     (r'^atom/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds, 'url': 'atom'}),
 )
 
-urlpatterns += patterns('django.views.generic.create_update',
-    (r'^create/$', 'create_object', dict(model=Entry, login_required=True, extra_context={'STATE_DEFAULT': settings.STATE_DEFAULT})),
-)
+if settings.STATE_DEFAULT != settings.STATE_PUBLISHED:
+    urlpatterns += patterns('django.views.generic.create_update',
+        (r'^create/$', 'create_object', dict(model=Entry, login_required=True, post_save_redirect='/news/posted/', extra_context={'STATE_DEFAULT': settings.STATE_DEFAULT})),
+    )
+else:
+    urlpatterns += patterns('django.views.generic.create_update',
+        (r'^create/$', 'create_object', dict(model=Entry, login_required=True, extra_context={'STATE_DEFAULT': settings.STATE_DEFAULT})),
+    )
 
 urlpatterns += patterns('django.views.generic.date_based',
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[0-9A-Za-z-]+)/$', 'object_detail', dict(entry_dict_detail, slug_field='slug')),
@@ -41,4 +46,8 @@ urlpatterns += patterns('django.views.generic.date_based',
     (r'^(?P<year>\d{4})/$', 'archive_year',  entry_dict_year),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$',  'archive_day', entry_dict),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$',  'archive_month', entry_dict),
+)
+
+urlpatterns += patterns('django.views.generic.simple',
+    (r'^posted/$', 'direct_to_template', dict(template='newsaggregator/posted.html')),
 )
