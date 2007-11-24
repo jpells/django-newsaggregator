@@ -4,7 +4,7 @@
 {% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
 {% endif %}
 {% blocktrans with object.description as object_description %}{{ object_description }}{% endblocktrans %}<br />
-{% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} {{ object.get_author_str }}<br />
+{% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} {% autoescape off %}{{ object.get_author_str }}{% endautoescape %}<br />
 {% load comments %}
 {% get_comment_count for newsaggregator.Entry object.id as comment_count %}
 Comment{{ comment_count|pluralize }}: {{ comment_count }}<br />
