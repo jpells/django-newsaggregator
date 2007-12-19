@@ -20,7 +20,7 @@ class Feed(models.Model):
     class Admin:
         pass
 
-    def __str__(self):
+    def __unicode__(self):
         return _(self.title)
 
 class Entry(models.Model):
@@ -66,7 +66,7 @@ class Entry(models.Model):
         else:
             return ''
 
-    def __str__(self):
+    def __unicode__(self):
         return _(self.title)
 
     class Meta:
