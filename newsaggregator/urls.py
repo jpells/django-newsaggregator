@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from newsaggregator.models import Entry
 from newsaggregator.feeds import RssFeed, AtomFeed
-from django.conf import settings
+from newsaggregator import settings
 
 feeds = { 
     'rss': RssFeed,
