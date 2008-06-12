@@ -5,10 +5,10 @@
 {% block breadcrumb%}<li><a href="/news/">{% trans "Entries" %}</a></li> <li><a href="/news/{{ object.pub_date|date:"Y"|lower }}/">{{ object.pub_date|date:"Y"|lower }}</a></li> <li><a href="/news/{{ object.pub_date|date:"Y"|lower }}/{{ object.pub_date|date:"b"|lower }}/">{{ object.pub_date|date:"F" }}</a></li> <li class="last">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</li>{% endblock %}
 {% block content %}
 {% include "newsaggregator/_entry.html" %}
-{% get_comment_list for newsaggregator.Entry object.id as comment_list %}
+{% get_comment_list for newsaggregator.entry object.id as comment_list %}
 {% for comment in comment_list %}
 {% include "comments/_comment.html" %}
 {% endfor %}
 {% blocktrans %}Post a comment{% endblocktrans %}
-{% comment_form for newsaggregator.Entry object.id %}
+{% comment_form for newsaggregator.entry object.id %}
 {% endblock %}
