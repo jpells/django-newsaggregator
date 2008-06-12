@@ -31,7 +31,7 @@ class Entry(models.Model):
     link = models.URLField(null=True, blank=True, verbose_name=_("Source Link"))
     summary = models.TextField(null=True, blank=True, verbose_name=_("Summary"))
     mod_date = models.DateTimeField(verbose_name=_("Date Modified"), null=True, blank=True, auto_now=True)
-    guid = models.CharField(max_length=200, unique=True, db_index=True, verbose_name=_("Globally Unique Identifier"), blank=True, null=True)
+    guid = models.CharField(max_length=200, db_index=True, verbose_name=_("Globally Unique Identifier"), blank=True, null=True)
     author = models.CharField(_("Author"), max_length=50, null=True, blank=True)
     author_email = models.EmailField(_("Author's Email"), null=True, blank=True)
     comments = models.URLField(_("Comments"), null=True, blank=True)
